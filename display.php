@@ -28,7 +28,7 @@ tr:hover{
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "Shivam@18213";
+$password = "";
 $dbname = "regestration";
 
 // Create connection
@@ -38,53 +38,63 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, firstname, lastname, occupation , need FROM users";
+
+
+$sql = "SELECT firstname, lastname,contactNumber, occupation , need, About  FROM users";
 $result = $conn->query($sql);
+
 ?>
 
 <table width="500" border="5" cellspacing="5" cellpadding="2" align ="center">
 	
-	<?php
-	if (mysqli_num_rows()> 0) {
+        <?php
+        if(mysqli_num_rows($result) > 0) {
 		// output data of each row
-		while($row = $result->fetch_assoc()) {    
+		while($row = $result->fetch_assoc()) {
+			
 	?>		
-
-	  <tr>
-		<td>ID</td>
-		<td><?php echo $row["id"]; ?></td>
-		<td><a href="deluser.php?id=<?php echo $row["id"] ?>">Delete</a></td>
-	  </tr>
 	  <tr>
 		<td>First Name</td>
 		<td><?php echo $row["firstname"]; ?></td>
-		<td>&nbsp;</td>
+		
 	  </tr>
 	  <tr>
 		<td>Last Name</td>
 		<td><?php echo $row["lastname"]; ?></td>
-		<td>&nbsp;</td>
+		
+	  </tr>
+	  <tr>
+		<td>Contact Number</td>
+		<td><?php echo $row["contactNumber"]; ?></td>
+		
 	  </tr>
 	  <tr>
 		<td>OCCUPATION</td>
 		<td><?php echo $row["occupation"]; ?></td>
-		<td>&nbsp;</td>
+
 	  </tr>
 	   <tr>
 		<td>NEED TYPE</td>
 		<td><?php echo $row["need"]; ?></td>
-		<td>&nbsp;</td>
 	  </tr>
-	  
-		
+	  </tr> 
+	   <tr>
+		<td>About</td>
+		<td><?php echo $row["About"]; ?></td>
+		<tr>
+		<td>Adhar</td>  
+		<td><?php echo '<img src="data:iip/uploads;base64,'.base64_decode($row["Adhar"]).'" alt="Image;">';?> </td>
+	  </tr>
 	<?php	
 		} 
 	?>
 		</table>	
 <?php	
-	} else {
-			echo "0 results";
-	}
+        } else {       
+                       echo "0 results";
+        }
+      
+	 
 
 	
 $conn->close();

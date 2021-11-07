@@ -39,7 +39,7 @@ function val($data) {
 
 $servername = "localhost";
 $username = "root";
-$password = "Shivam@18213";
+$password = "";
 $dbname = "blog2";
 
 // Create connection
@@ -48,18 +48,25 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$linkadd1='http://localhost/phpmyadmin/phplessons/2ndsqlinj/updatepass.php';
+$linkadd1='http://localhost/phpmyadmin/phplessons/iip/updatepass.php';
 $linkadd2='http://localhost/phpmyadmin/phplessons/delete.php';
-$result = $conn->query("select * from users_blog2 where user_name='$uname'and passwo='$user_password'");
-$row =  $result->fetch_assoc();
-if($row['user_name']==$uname && $row['passwo']==$user_password){
-echo "<a href='".$linkadd1."'>CLICK HERE TO UPADTE YOUR PASSWORD </a>";
+$linkadd3='http://127.0.0.1:5000';
+$linkadd4='http://127.0.0.1:4000'; 
+$result = $conn->query("select * from users_blog2 where user_name='$uname'and Status='Active'");
+$row =  $result->fetch_assoc(); 
+if($row['user_name']==$uname && password_verify($user_password,$row['passwo']) ){
+echo "";
+echo "<a href='".$linkadd1."'>CLICK HERE TO UPDATE PASSWORD</a>";
 echo "</br>";
-echo "</br>";
-echo "</br>";
+
 echo "<a href='".$linkadd2."'>CLICK HERE TO VIEW THE LIST OF RECIPENTS</a>";
+echo "</br>";
+echo "<a href='".$linkadd3."'>CLICK HERE TO CHAT</a>";
+echo "</br>";
+echo "<a href='".$linkadd4."'>CHECK OUT OUR OTHER PRODUCTS</a>";
 }
 $conn->close(); 
+
 ?>
 </body>
 </html>
